@@ -2,31 +2,21 @@ import Foundation
 
 extension Array where Element: Comparable {
 
-    func bubbleSort(by areInIncreasingOrder: ((Element, Element) -> Bool) = (<)) -> [Element] {
-        if self.count == 0 {
-            return self
-        }
-        var data = self
+    mutating func bubbleSort(by comparator: ((Element, Element) -> Bool) = (<)) {
+        if self.count < 2 { return }
         
-        for i in 0..<(data.count-1) { 
-            for j in 0..<(data.count-i-1) where areInIncreasingOrder(data[j+1], data[j]) { 
-                data.swapAt(j, j + 1)
+        for i in 0 ..< self.count - 1 {
+            for j in 0 ..< self.count - i - 1 where comparator(self[j + 1], self[j]) {
+                self.swapAt(j, j + 1)
             }
         }
         
+        return
+    }
+    
+    func bubbleSorted(by comparator: ((Element, Element) -> Bool) = (<)) -> [Element] {
+        var data = self
+        data.bubbleSort(by: comparator)
         return data
     }
 }
-
-func swap<T: Comparable>(left: inout T, right: inout T) {
-    print("Swapping \(left) and \(right)")
-    let temp = right
-    right = left
-    left = temp
-}
-
-// The code below can be used for testing
-
-// let numberList : Array<Int> = [8, 2, 10, 9, 7, 5]
-// let results: Array<Int> = numberList.bubbleSort()
-// print(results)

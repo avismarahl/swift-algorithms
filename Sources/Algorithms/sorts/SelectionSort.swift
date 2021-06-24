@@ -1,38 +1,28 @@
 import Foundation
 
 extension Array where Element: Comparable {
-func selectionSort() -> Array<Element> {     
+    mutating func selectionSort() {
+        guard self.count > 1 else { return }
         
-        guard self.count > 1 else {
-            return self
-        }        
-        
-        var output: Array<Element> = self
-                
-        for primaryindex in 0..<output.count {
-                        
+        for primaryindex in 0 ..< self.count {
             var minimum = primaryindex
             var secondaryindex = primaryindex + 1
-                        
-            while secondaryindex < output.count {
-         
-                if output[minimum] > output[secondaryindex] {
+            while secondaryindex < self.count {
+                if self[minimum] > self[secondaryindex] {
                     minimum = secondaryindex
                 }                
                 secondaryindex += 1
             }
-            
             if primaryindex != minimum {
-            output.swapAt(primaryindex, minimum)
+                self.swapAt(primaryindex, minimum)
             }            
         }
-                
-        return output        
+        return
+    }
+    
+    func selectionSorted() -> [Element] {
+        var data = self
+        data.selectionSort()
+        return data
     }
 }
-
-// The code below can be used for testing
-
-// let numberList : Array<Int> = [15, 2, 23, 11, 3, 9]
-// let results: Array<Int> = numberList.selectionSort()
-// print(results)

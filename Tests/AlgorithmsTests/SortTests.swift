@@ -18,7 +18,7 @@ final class SortTests: XCTestCase {
     
     func testBubble() {
         for testCase in testCases {
-            if !isArray(testCase[0].bubbleSort(), equalTo: testCase[1]) {
+            if !isArray(testCase[0].bubbleSorted(), equalTo: testCase[1]) {
                 XCTFail()
             }
         }
@@ -26,7 +26,7 @@ final class SortTests: XCTestCase {
     
     func testInsertionSort() {
         for testCase in testCases {
-            if !isArray(insertionSort(testCase[0], by: <), equalTo: testCase[1]) {
+            if !isArray(testCase[0].insertionSorted(), equalTo: testCase[1]) {
                 XCTFail()
             }
         }
@@ -34,7 +34,7 @@ final class SortTests: XCTestCase {
     
     func testSelectionSort() {
         for testCase in testCases {
-            if !isArray(testCase[0].selectionSort(), equalTo: testCase[1]) {
+            if !isArray(testCase[0].selectionSorted(), equalTo: testCase[1]) {
                 XCTFail()
             }
         }

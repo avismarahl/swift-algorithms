@@ -1,34 +1,27 @@
 import Foundation
 
-func insertionSort<T>(_ array: [T], by comparison: (T, T) -> Bool) -> [T] {
-    guard array.count > 1 else { return array }
-    
-    var sortedArray = array
-    
-    for index in 1..<sortedArray.count {
-        var currentIndex = index
-        let temp = sortedArray[currentIndex]
+public extension Array where Element: Comparable {
+
+    mutating func insertionSort(by comparator: ((Element, Element) -> Bool) = (<)) {
+        guard self.count > 1 else { return }
         
-        while currentIndex > 0, comparison(temp, sortedArray[currentIndex - 1]) {
-            sortedArray[currentIndex] = sortedArray[currentIndex - 1]
-            currentIndex -= 1
+        for index in 1 ..< self.count {
+            var currentIndex = index
+            let temp = self[currentIndex]
+            
+            while currentIndex > 0, comparator(temp, self[currentIndex - 1]) {
+                self[currentIndex] = self[currentIndex - 1]
+                currentIndex -= 1
+            }
+            self[currentIndex] = temp
         }
-        sortedArray[currentIndex] = temp
+        
+        return
     }
     
-    return sortedArray
+    func insertionSorted(by comparator: ((Element, Element) -> Bool) = (<)) -> [Element] {
+        var data = self
+        data.insertionSort(by: comparator)
+        return data
+    }
 }
-
-// The code below can be used for testing
-
-/*
-let numbers = [10, 1, 3, 8, 4, 2]
-
-print(insertionSort(numbers, by: >))
-print(insertionSort(numbers, by: <))
-
-let names = ["Jack", "Paul", "Olivia", "Emma", "Michael"]
-
-print(insertionSort(names, by: >))
-print(insertionSort(names, by: <))
-*/
