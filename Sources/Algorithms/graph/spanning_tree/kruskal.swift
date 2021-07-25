@@ -1,4 +1,5 @@
 import DataStructures
+
 public enum Kruskal {
     struct Vertex {
         let name: String
